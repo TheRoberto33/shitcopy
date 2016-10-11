@@ -32,7 +32,6 @@ class TestModule:
             self.text = ""
             return
 
-        print("text: |{0}|\t message: |{1}|\tformatted: |{2}|".format(self.text, message.content, self.parseString(message.content)))
 
         if self.parseString(message.content) != self.text:
             self.text = self.parseString(message.content)

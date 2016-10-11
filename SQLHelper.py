@@ -1,24 +1,33 @@
 
-import pyodbc
+import sqlite3
 
 def init():
-    DBfile = r"C:\Users\Heikki\PycharmProjects\JonneBotti\data\JonneBottiDatabase.mdb"
-    global __cursor
+    global __cur
     global __conn
-    __conn = pyodbc.connect(r"Driver={Microsoft Access Driver (*.mdb)};DBQ=" + DBfile + ";")
-    __cursor = __conn.cursor()
-
+    __conn = sqlite3.connect("data/JonneBottiDatabase.db")
+    __cur = __conn.cursor()
 
 
 def query(q):
     try:
-        res = __cursor.execute(q)
-    except pyodbc.Error:
-        print("Error in SQL!")
-        res = None
-    return res
+        res = __cur.execute(q)
+    except sqlite3.Error as err:
+        print("Error in SQL:")
+        print(err)
+    return __cur.fetchall()
+
+def execcommit(query, par):
+    try:
+        __cur.execute(query, par)
+        __conn.commit()
+    except sqlite3.Error as err:
+        print("Error in SQL:")
+        print(err)
+
+
+
 
 #TODO: Call somewhere
 def close():
-    __cursor.close
+    __cur.close()
     __conn.close

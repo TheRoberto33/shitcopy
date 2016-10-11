@@ -34,10 +34,17 @@ async def on_ready():
 
 
     for c in client.get_all_channels():
-        if c.id == "231747357857939456":
-            voice = await client.join_voice_channel(c)
-            ModuleManager.initVoice(voice)
+        if c.id == "233591578583760897":
+            try:
 
+                voice = await client.join_voice_channel(c)
+            except asyncio.TimeoutError:
+                print("timeouterror")
+            except discord.ClientException:
+                print("clientexception")
+            #ModuleManager.initVoice(voice)
+            ModuleManager.initVoice(None)
+    import Player
 
     print('Logged in!')
     print("Modules: ")
@@ -92,27 +99,7 @@ async def on_message_edit(before, after):
             pass
 
 
-@client.event
-async def on_member_update(before, after):
-    if after == client.user:
-        return
 
-    for m in ModuleManager.modules():
-        try:
-            await m.on_member_update(before,after)
-        except AttributeError:
-            pass
-
-@client.event
-async def on_member_update(channel, user, when):
-    if user == client.user:
-        return
-
-    for m in ModuleManager.modules():
-        try:
-            await m.on_member_update(channel, user, when)
-        except AttributeError:
-            pass
 
 
 

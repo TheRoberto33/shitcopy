@@ -26,15 +26,18 @@ class MemeModule:
                 return
 
 
+
             for q in que:
-                if '.' in q.link[(len(q.link) - 5):]:
-                    await ModuleManager.client().send_message(message.channel, q.link)
+                print(q[0][-5:])
+                if '.' in q[0][-5:]:
+                    await ModuleManager.client().send_message(message.channel, q[0])
 
                 else:
-                    images = ImgurAlbumParser.getImages(q.link)
+                    images = ImgurAlbumParser.getImages(q[0])
                     index = random.randint(0, len(images) - 1)
                     await ModuleManager.client().send_message(message.channel, images[index].link)
                     print(index)
+
 
 
 
