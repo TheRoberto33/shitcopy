@@ -1,25 +1,25 @@
 import discord
 
 import asyncio
-import glob, os
+import os
 import importlib
-
+import ModuleManager
+import SQLHelper
+import ImgurAlbumParser
 
 client = discord.Client()
 
-discord.opus.load_opus("C:\\Users\Heikki\\PycharmProjects\\JonneBotti\\libopus-0.dll")
+discord.opus.load_opus("libopus.so")
 
-
-import ModuleManager
 ModuleManager.initManager(client)
 
-import SQLHelper
+
 SQLHelper.init()
 
-import ImgurAlbumParser
+
 ImgurAlbumParser.init()
 
-#Automatically imports anything that is named *Module.py
+# Automatically imports anything that is named *Module.py
 s = os.path.realpath(__file__)
 s = s[:(len(s) - 13)] + "Modules/"
 for file in os.listdir(s):
@@ -28,21 +28,19 @@ for file in os.listdir(s):
         print("Imported: {0}".format(file))
 
 
-
 @client.event
 async def on_ready():
-
-
     for c in client.get_all_channels():
-        if c.id == "233591578583760897":
+        if c.id == "199174130296160257":
             try:
-
-                voice = await client.join_voice_channel(c)
+                pass
+                #voice = await client.join_voice_channel(c)
+                #ModuleManager.initVoice(voice)
             except asyncio.TimeoutError:
                 print("timeouterror")
             except discord.ClientException:
                 print("clientexception")
-            #ModuleManager.initVoice(voice)
+            # ModuleManager.initVoice(voice)
             ModuleManager.initVoice(None)
     import Player
 
@@ -60,7 +58,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    #No self-answering
+    # No self-answering
     if message.author == client.user:
         return
 
@@ -94,16 +92,9 @@ async def on_message_edit(before, after):
 
     for m in ModuleManager.modules():
         try:
-            await m.on_message_edit(before,after)
+            await m.on_message_edit(before, after)
         except AttributeError:
             pass
-
-
-
-
-
-
-
 
 tokenfile = open("data/token.txt", "r")
 

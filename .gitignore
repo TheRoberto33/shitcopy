@@ -1,2 +1,6 @@
 libopus-0.dll
 data
+venv
+__pycache__
+Modules/__pycache
+libopus.so

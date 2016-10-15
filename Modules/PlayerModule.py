@@ -1,13 +1,9 @@
 import ModuleManager
-import asyncio
 import SQLHelper
-
-import discord
-
 from Player import player
 
-class PlayerModule:
 
+class PlayerModule:
 
     async def on_ready(self):
         pass
@@ -23,7 +19,6 @@ class PlayerModule:
 
         if text.startswith("!player"):
             list = text.split()
-            print(list)
             if len(list) == 1:
                 return
 
@@ -31,16 +26,10 @@ class PlayerModule:
                 if len(list) != 3:
                     return
 
-
                 if not list[2].startswith("http"):
                     que = SQLHelper.query("SELECT url FROM YoutubeAliases WHERE alias=\'{0}\'".format(list[2]))
                     if que is None:
                         return
-                    #SQL returns URL:s with '#' in front of them, idk why
-                    for row in que:
-                        list[2] = row[0][1:]
-                        print(row[0][1:])
-
 
                 if "&" in list[2]:
                     index = list[2].index("&")
@@ -48,10 +37,8 @@ class PlayerModule:
 
                 await player.start(list[2])
 
-
             elif list[1] == "stop":
                 player.stop()
-
 
             elif list[1] == "pause":
                 player.pause()
@@ -69,7 +56,4 @@ class PlayerModule:
                         pass
 
 
-
 ModuleManager.addmodule(PlayerModule())
-
-

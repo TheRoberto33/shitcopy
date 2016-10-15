@@ -17,8 +17,7 @@ class MemeModule:
                 print("Meme request not dank enough")
                 return
 
-            SQL = "SELECT link FROM Memes WHERE type=\'{0}\' AND variant=\'{1}\'".format(list[1], list[2]);
-            print(SQL)
+            SQL = "SELECT link FROM Memes WHERE type=\'{0}\' AND variant=\'{1}\'".format(list[1], list[2])
             que = SQLHelper.query(SQL)
 
             if que == None:
@@ -47,5 +46,3 @@ class MemeModule:
             #await ModuleManager.client().send_message(message.channel, s)
 
 ModuleManager.addmodule(MemeModule())
-
-

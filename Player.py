@@ -10,7 +10,9 @@ class Player:
     async def start(self, url):
         if self.player is not None:
             self.stop()
+        print("Starting to play...")
         self.player = await ModuleManager.vclient().create_ytdl_player(url)
+        print("go on...")
         self.player.start()
 
 
