@@ -16,7 +16,7 @@ def query(q):
         print(err)
     return __cur.fetchall()
 
-def execcommit(query, par):
+def execcommit(query, par=()):
     try:
         __cur.execute(query, par)
         __conn.commit()

@@ -33,15 +33,14 @@ async def on_ready():
     for c in client.get_all_channels():
         if c.id == "199174130296160257":
             try:
-                pass
-                #voice = await client.join_voice_channel(c)
-                #ModuleManager.initVoice(voice)
+                voice = await client.join_voice_channel(c)
+                ModuleManager.initVoice(voice)
             except asyncio.TimeoutError:
                 print("timeouterror")
             except discord.ClientException:
                 print("clientexception")
             # ModuleManager.initVoice(voice)
-            ModuleManager.initVoice(None)
+            # ModuleManager.initVoice(None)
     import Player
 
     print('Logged in!')
