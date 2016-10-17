@@ -9,7 +9,8 @@ class UtilityModule:
             # print("lmgtfy.com/?q=" + "+".join(words[1:]))
             # importlib.reload(words[1])
             await ModuleManager.client().send_message(message.channel, "No. Not yet, at least")
-
+        elif message.content.startswith("!say") and message.channel == "233591578583760896":
+            await ModuleManager.client().send_message(message.content[5:23], message.content[23:])
 
 
 ModuleManager.addmodule(UtilityModule())
