@@ -1,4 +1,4 @@
-import ModuleManager
+from Bot import bot
 import asyncio
 import SQLHelper
 import random
@@ -11,14 +11,14 @@ class MemeModule:
 
     async def on_message(self, message):
         if message.content.startswith("!meme"):
-            list = message.content.split()
+            mes = message.content.split()
 
-            if len(list) != 3:
+            if len(mes) != 3:
                 print("Meme request not dank enough")
                 return
 
-            SQL = "SELECT link FROM Memes WHERE type=\'{0}\' AND variant=\'{1}\'".format(list[1], list[2])
-            que = SQLHelper.query(SQL)
+
+            que = SQLHelper.query("SELECT link FROM Memes WHERE type=? AND variant=?", (mes[1], mes[2]))
 
             if que == None:
                 print("None...")
@@ -29,12 +29,12 @@ class MemeModule:
             for q in que:
                 print(q[0][-5:])
                 if '.' in q[0][-5:]:
-                    await ModuleManager.client().send_message(message.channel, q[0])
+                    await bot.client.send_message(message.channel, q[0])
 
                 else:
                     images = ImgurAlbumParser.getImages(q[0])
                     index = random.randint(0, len(images) - 1)
-                    await ModuleManager.client().send_message(message.channel, images[index].link)
+                    await bot.client.send_message(message.channel, images[index].link)
                     print(index)
 
 
@@ -45,4 +45,4 @@ class MemeModule:
 
             #await ModuleManager.client().send_message(message.channel, s)
 
-ModuleManager.addmodule(MemeModule())
+bot.addModule(MemeModule())

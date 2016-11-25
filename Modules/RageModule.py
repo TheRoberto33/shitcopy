@@ -1,8 +1,8 @@
-import ModuleManager
+from Bot import bot
 import SQLHelper
 import random
 
-class UtilityModule:
+class RageModule:
 
 
 
@@ -40,7 +40,7 @@ class UtilityModule:
                         probsum = float(sumquery[0][0])
 
                         if probsum > 1.0 or (probsum == 1 and nullquery[0] != 0):
-                            await ModuleManager.client().send_message(message.channel, "Rage towards Roope was so great that it caused an error. No, seriously, there's an error with SQL")
+                            await bot.client.send_message(message.channel, "Rage towards Roope was so great that it caused an error. No, seriously, there's an error with SQL")
                             return
 
                         if nullquery[0][0] is not 0:
@@ -60,7 +60,7 @@ class UtilityModule:
                             else:
                                 currentsum += row[1]
                             if rand < currentsum:
-                                await ModuleManager.client().send_message(message.channel, row[0])
+                                await bot.client.send_message(message.channel, row[0])
                                 break
 
 
@@ -70,4 +70,4 @@ class UtilityModule:
 
 
 
-ModuleManager.addmodule(UtilityModule())
+bot.addModule(RageModule())

@@ -1,25 +1,25 @@
-
 import sqlite3
 
-def init():
-    global __cur
-    global __conn
-    __conn = sqlite3.connect("data/JonneBottiDatabase.db")
-    __cur = __conn.cursor()
 
 
-def query(q):
+
+connection = sqlite3.connect("data/JonneBottiDatabase.db")
+cursor = connection.cursor()
+
+
+
+def query(q, par=()):
     try:
-        res = __cur.execute(q)
+        res = cursor.execute(q, par)
     except sqlite3.Error as err:
         print("Error in SQL:")
         print(err)
-    return __cur.fetchall()
+    return cursor.fetchall()
 
 def execcommit(query, par=()):
     try:
-        __cur.execute(query, par)
-        __conn.commit()
+        cursor.execute(query, par)
+        connection.commit()
     except sqlite3.Error as err:
         print("Error in SQL:")
         print(err)
@@ -29,5 +29,5 @@ def execcommit(query, par=()):
 
 #TODO: Call somewhere
 def close():
-    __cur.close()
-    __conn.close
+    cursor.close()
+    connection.close()

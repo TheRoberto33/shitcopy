@@ -1,6 +1,4 @@
-import ModuleManager
-import asyncio
-import SQLHelper
+from Bot import bot
 
 class LennyModule:
 
@@ -20,32 +18,20 @@ class LennyModule:
 
     async def on_message(self, message):
         if message.content.startswith("!lenny"):
-
             mes = message.content.split()
-
             if len(mes) == 1:
-                await ModuleManager.client().send_message(message.channel, "( ͡° ͜ʖ ͡°)")
-
-
+                await bot.client.send_message(message.channel, "( ͡° ͜ʖ ͡°)")
 
             elif len(mes) == 2 and self.is_int(mes[1]):
                 num = int(mes[1])
                 if num <= 0 or 100 < num:
                     return
-
                 result = ""
                 for i in range(0, int(mes[1])):
                     if i % 10 == 0:
                         result += "\n"
-
                     result += "( ͡° ͜ʖ ͡°) "
-
-                await ModuleManager.client().send_message(message.channel, result)
-
+                await bot.client.send_message(message.channel, result)
 
 
-
-
-
-
-ModuleManager.addmodule(LennyModule())
+bot.addModule(LennyModule())

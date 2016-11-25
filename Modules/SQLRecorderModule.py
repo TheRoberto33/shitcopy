@@ -1,4 +1,4 @@
-import ModuleManager
+from Bot import bot
 import asyncio
 import SQLHelper
 
@@ -14,8 +14,6 @@ class TestModule:
         pass
 
     async def on_message(self, message):
-
-
         SQLHelper.execcommit("INSERT INTO Messages(MessageID, Author, Content, Timestamp, ChannelID, HasAttachments, EditTImestamp) VALUES(?, ?, ?, ?, ?, ?, ?);", (message.id, message.author.name, message.content, int(time.time()), message.channel.id, False, "NULL"))
-        
-ModuleManager.addmodule(TestModule())
+
+bot.addModule(TestModule())

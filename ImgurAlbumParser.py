@@ -1,19 +1,19 @@
-
 from html.parser import HTMLParser
-
 import urllib.request
-
 from imgurpython import ImgurClient
 
-def init():
-    global __client
-    __client = ImgurClient("a5c8b43111a04e2", "a74daf33a4179108220a5f037abcde1071f7985b")
+
+tokens = []
+
+tokenfile = open("data/imgurtokens")
+for line in tokenfile:
+    tokens.append(line[:-1])
+tokenfile.close()
+client = ImgurClient(tokens[0], tokens[1])
+
 
 
 
 def getImages(url):
 
-    return __client.get_album_images(url[(len(url) - 5):])
-
-
-
+    return client.get_album_images(url[(len(url) - 5):])

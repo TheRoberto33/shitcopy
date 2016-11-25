@@ -1,11 +1,11 @@
-import ModuleManager
+from Bot import bot
 import asyncio
 
 #Module that repeats a message if a number of seperate users say it back to back(multiple messages from one user will not break the chain)
 #All images, links and commands are ignored and will break the chain
 #Case is ignored, punctuation at the end of the message is ignored
 #For example: Roope: (Kuva)    Heikki: Ei    Aplu: ei    Oliver: EI!    JonneBotti: ei
-class TestModule:
+class RepeatModule:
 
     def __init__(self, neededUsers):
         self.users = []
@@ -40,12 +40,12 @@ class TestModule:
             return
 
 
-        if message.author.name not in self.users or True:
+        if message.author.name not in self.users:
             self.users.append(message.author.name)
 
             if len(self.users) == 3:
                 self.users = []
-                await ModuleManager.client().send_message(message.channel, self.text.lower())
+                await bot.client.send_message(message.channel, self.text.lower())
 
 
 
@@ -54,6 +54,4 @@ class TestModule:
 
 
 
-ModuleManager.addmodule(TestModule(2))
-
-
+bot.addModule(RepeatModule(2))
