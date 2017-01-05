@@ -16,4 +16,4 @@ for file in os.listdir(s):
         print("Imported: {0}".format(file))
 
 
-bot.run({"vchannel": "Jaa"})
+bot.run({"vchannel": "Things"})
