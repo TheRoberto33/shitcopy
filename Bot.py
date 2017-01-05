@@ -8,7 +8,7 @@ class Bot:
         self.vclient = None
         self.modules = []
         self.arguments = {}
-        self.arguments["vchannel"] = "Jaa"
+        self.arguments["vchannel"] = "Things"
 
 
 
